@@ -1,0 +1,18 @@
+dist: trusty
+sudo: required
+language: generic
+services:
+  - docker
+
+matrix:
+  include:
+  - env: GHCVER=8.0.2 CABALVER=1.24 STACKVER=1.6.5
+  - env: GHCVER=8.2.2 CABALVER=1.24 STACKVER=1.6.5
+  - env: GHCVER=8.4.2 CABALVER=1.24 STACKVER=1.6.5
+
+script:
+  - bin/ci
+
+notifications:
+  slack:
+    secure: PD7JZouJ0QLFETRsmi3ba/n39SJGZxeZEQpe/77rTKDqLJNX3GoB7IBIchne/F/wSoM07g8gR3PoAOWX73J0kb7jWi9E4BdrdZ0EH0Qb/YMtBLbV55zdZg2obqpl3J6M3xFmpXG9Rwj87/nGMYriRJuhph2QOOUoa2+M4d7yMeTgLgBTcUiNs5okbtJl41mWfGD03EYcGPkGHB/7IuqgxTGJjbwRZPUWBfyNO3it29cokiAfbUi4tH/7tUYzx1UAU9FpuJNnRZ79OGb2ajudg7vz9ULb3ZNVyv4A34yEncoP2T/P6ZU6h8Amp3nCxzYoDTqNHebL2P+W786G/58Dp5Xvx+MDhovigk8oo+BvsOCw0LDpAXmm+pbicUOsrL/sH4j67fNdqXMZ70g+g0PItBVVPXsxp6bWJu86yXXvn+QtKKKcQlxkMrbs7kffCFCvso+cuhppHYl/d0FpqQyK3UKOgZyMBOWnzaKueFADIGlU6eglGFeHQ3M5cQf7W+OPZGc4GJv6Rf+nPTHEJpJ41Abx6lxG492O9w3pk2VoQdrxhnCFpz61gvUSjrP2lJwOL9wki/XPZY1+vmUFbble8QU2wjfVQ6dojMpMNsjrAMJGoDGetYYIW10Rrp97Y8IBCIRRgcrZZiPhF9nyQAnGBm9HkP7yMaRyL/brG1D+Nw8=

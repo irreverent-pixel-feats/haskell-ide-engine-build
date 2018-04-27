@@ -1,0 +1,43 @@
+#!/bin/sh -eux
+
+GHC_VER="${1:?"The GHC version hie was built against"}"
+
+SHA="${2:?"SHA version"}"
+
+PKG_ROOT="$(mktemp -d "/tmp/hie.XXXXXXX")"
+
+BINARY="~/.local/bin/hie"
+
+mkdir -p "${PKG_ROOT}/DEBIAN"
+
+mkdir -p "${PKG_ROOT}/usr/bin"
+
+cp -v "${BINARY}" "${PKG_ROOT}/usr/bin/hie"
+
+VERSION="$(${PKG_ROOT}/usr/bin/hie --version)-${SHA}"
+
+REPO_URL="https://api.bintray.com/content/irreverent-pixel-feats/ipf/hie-${GHC_VER}/${VERSION}/pool/main/m/hie-${GHC_VER}"
+
+tee "${PKG_ROOT}/DEBIAN/control" << EOF
+Package: hie-${GHC_VER}
+Version: ${VERSION}
+Architecture: $(dpkg --print-architecture)
+Maintainer: Dom De Re <domdere@irreverentpixelfeats.com>
+Description: Haskell IDE Engine
+ Our custom build of the Haskell IDE engine
+ https://github.com/haskell/haskell-ide-engine
+EOF
+
+# Little bit newb/naive but whatevs
+dpkg-deb --build "${PKG_ROOT}"
+
+DEB_NAME="hie-${GHC_VER}_$(dpkg --print-architecture)-${VERSION}.deb"
+
+mv -v "${PKG_ROOT}.deb" "/tmp/${DEB_NAME}"
+
+rm -rfv "${PKG_ROOT}"
+
+curl -X PUT -T "/tmp/${DEB_NAME}" \
+  -u${BINTRAY_USER}:${BINTRAY_API_KEY} \
+  -H "X-GPG-PASSPHRASE: ${BINTRAY_GPG_PASSPHRASE}" \
+  "${REPO_URL}/${DEB_NAME};deb_distribution=xenial;deb_component=main;publish=1;deb_architecture=$(dpkg --print-architecture)"
