@@ -3,7 +3,7 @@ REPO = irreverentpixelfeats/ci-haskell-stack
 IMAGE_SHA = 20180427081606-f04d0ef
 BASE_TAG = ubuntu_xenial
 
-.PHONY: deps build image all
+.PHONY: deps build image all publish
 
 data/version:
 	bin/git-version ./latest-version
@@ -12,14 +12,12 @@ data/version:
 
 deps: data/version
 
-build: deps
-	docker run -ti --rm -e "GHCVER=${GHCVER}" -e "CABALVER=${CABALVER}" -e "STACKVER=${STACKVER}" -v "/tmp:/tmp/output" -v "$(shell pwd)/bin:/home/bin" "${REPO}:ubuntu_xenial-${GHCVER}_${CABALVER}_${STACKVER}-${IMAGE_SHA}" "/home/bin/build-hie"
+output/hie: deps bin/build-hie
+	docker run -ti --rm -e "GHCVER=${GHCVER}" -e "CABALVER=${CABALVER}" -e "STACKVER=${STACKVER}" -v "$(shell pwd)/output:/tmp/output" -v "$(shell pwd)/bin:/home/bin" -v "$(shell pwd)/data:/home/data" "${REPO}:ubuntu_xenial-${GHCVER}_${CABALVER}_${STACKVER}-${IMAGE_SHA}" "/home/bin/build-hie"
 
+build: output/hie
 
-images/dev-base-${BASE_TAG}.tar.gz: build
-	docker image save -o "images/dev-base-${BASE_TAG}.tar" "${REPO}:${BASE_TAG}"
-	cd images && gzip -v "dev-base-${BASE_TAG}.tar"
+publish: output/hie
+	docker run -ti --rm -e "GHCVER=${GHCVER}" -e "CABALVER=${CABALVER}" -e "STACKVER=${STACKVER}" -v "$(shell pwd)/output:/tmp/output" -v "$(shell pwd)/bin:/home/bin" -v "$(shell pwd)/data:/home/data" "${REPO}:ubuntu_xenial-${GHCVER}_${CABALVER}_${STACKVER}-${IMAGE_SHA}" "/home/bin/publish-hie"
 
-image: images/dev-base-${BASE_TAG}.tar.gz
-
-all: build image
+all: build
