@@ -7,7 +7,7 @@ HLINT="/tmp/output/hlint.yaml"
 
 mkdir -p "${PKG_ROOT}/DEBIAN"
 
-mkdir -p "${PKG_ROOT}/usr/bin"
+mkdir -p "${PKG_ROOT}/usr/bin/data"
 
 cp -v "${BINARY}" "${PKG_ROOT}/usr/bin/hie"
 cp -v "${HLINT}" "${PKG_ROOT}/usr/bin/data/hlint.yaml"
