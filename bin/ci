@@ -1,0 +1,8 @@
+#!/bin/sh -eux
+
+
+bin/ci.branches
+
+if [ "${TRAVIS_BRANCH}" = 'master' ]; then
+  make publish
+fi
