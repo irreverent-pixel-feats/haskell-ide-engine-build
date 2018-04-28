@@ -12,12 +12,12 @@ data/version:
 
 deps: data/version
 
-output/hie: deps bin/build-hie
+output/hie output/hlint.yaml: deps bin/build-hie
 	docker run -t --rm -e "GHCVER=${GHCVER}" -e "CABALVER=${CABALVER}" -e "STACKVER=${STACKVER}" -v "$(shell pwd)/output:/tmp/output" -v "$(shell pwd)/bin:/home/bin" -v "$(shell pwd)/data:/home/data" "${REPO}:ubuntu_xenial-${GHCVER}_${CABALVER}_${STACKVER}-${IMAGE_SHA}" "/home/bin/build-hie"
 
-build: output/hie
+build: output/hie output/hlint.yaml
 
-publish: bin/ci.publish bin/publish-hie output/hie
+publish: bin/ci.publish bin/publish-hie output/hie output/hlint.yaml
 	bin/ci.publish "${GHCVER}" "${CABALVER}" "${STACKVER}" "${REPO}" "${IMAGE_SHA}"
 
 all: build
