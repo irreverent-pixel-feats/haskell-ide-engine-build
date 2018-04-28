@@ -17,7 +17,7 @@ output/hie: deps bin/build-hie
 
 build: output/hie
 
-publish: output/hie
-	docker run -ti --rm -e "GHCVER=${GHCVER}" -e "CABALVER=${CABALVER}" -e "STACKVER=${STACKVER}" -v "$(shell pwd)/output:/tmp/output" -v "$(shell pwd)/bin:/home/bin" -v "$(shell pwd)/data:/home/data" "${REPO}:ubuntu_xenial-${GHCVER}_${CABALVER}_${STACKVER}-${IMAGE_SHA}" "/home/bin/publish-hie"
+publish: bin/ci.publish bin/publish-hie output/hie
+	bin/ci.publish "${GHCVER}" "${CABALVER}" "${STACKVER}" "${REPO}" "${IMAGE_SHA}"
 
 all: build
