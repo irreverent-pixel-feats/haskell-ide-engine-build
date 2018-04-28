@@ -4,12 +4,14 @@ PKG_ROOT="$(mktemp -d "/tmp/hie.XXXXXXX")"
 
 BINARY="/tmp/output/hie"
 HLINT="/tmp/output/hlint.yaml"
+CABAL_HELPER="/tmp/output/cabal-helper-wrapper"
 
 mkdir -p "${PKG_ROOT}/DEBIAN"
 
 mkdir -p "${PKG_ROOT}/usr/bin/data"
 
 cp -v "${BINARY}" "${PKG_ROOT}/usr/bin/hie"
+cp -v "${CABAL_HELPER}" "${PKG_ROOT}/usr/bin/cabal-helper-wrapper"
 cp -v "${HLINT}" "${PKG_ROOT}/usr/bin/data/hlint.yaml"
 
 VERSION="${IMAGE_SHA}"

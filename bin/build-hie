@@ -15,3 +15,4 @@ stack --stack-yaml=stack-${GHCVER}.yaml install
 
 cp ~/.local/bin/hie /tmp/output/hie
 cp "$(find . -type f -name "hlint.yaml")" /tmp/output/hlint.yaml
+cp "$(find . -type f -name "cabal-helper-wrapper")" /tmp/output/cabal-helper-wrapper
