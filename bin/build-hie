@@ -14,3 +14,4 @@ git submodule update
 stack --stack-yaml=stack-${GHCVER}.yaml install
 
 cp ~/.local/bin/hie /tmp/output/hie
+cp "$(find . -type f -name "hlint.yaml")" /tmp/output/hlint.yaml
