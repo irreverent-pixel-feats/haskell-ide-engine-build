@@ -6,7 +6,7 @@ STACK_VER="${3:?"The stack version"}"
 REPO="${4:?"The repo to pull the build image from"}"
 IMAGE_SHA="${5:?"The Sha for the image to build with"}"
 
-docker run -ti --rm \
+docker run -t --rm \
   -e "GHCVER=${GHC_VER}" \
   -e "IMAGE_SHA=${IMAGE_SHA}" \
   -e "BINTRAY_USER=${BINTRAY_USER}" \
