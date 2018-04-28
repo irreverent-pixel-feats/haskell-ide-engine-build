@@ -1,11 +1,13 @@
 #!/bin/sh -eux
 
+BUILD_SHA="bc66ce2"
+
 apt-get install -y libicu-dev
 
 git clone https://github.com/domdere/haskell-ide-engine.git
 cd haskell-ide-engine
 
-git checkout 0aa338d
+git checkout "${BUILD_SHA}"
 git submodule init
 git submodule update
 
