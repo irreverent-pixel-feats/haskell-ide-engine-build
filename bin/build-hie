@@ -4,6 +4,9 @@ BUILD_SHA="bc66ce2"
 
 apt-get install -y libicu-dev
 
+mkdir -p /etc/hie
+
+cd /etc/hie
 git clone https://github.com/domdere/haskell-ide-engine.git
 cd haskell-ide-engine
 
@@ -11,8 +14,19 @@ git checkout "${BUILD_SHA}"
 git submodule init
 git submodule update
 
-stack --stack-yaml=stack-${GHCVER}.yaml install
+HOME="/etc/hie" stack --stack-yaml=stack-${GHCVER}.yaml install
 
-cp ~/.local/bin/hie /tmp/output/hie
-cp "$(find . -type f -name "hlint.yaml")" /tmp/output/hlint.yaml
-cp "$(find . -type f -name "cabal-helper-wrapper")" /tmp/output/cabal-helper-wrapper
+cp /etc/hie/.local/bin/hie /tmp/output/hie
+HLINT_LOC="$(find .stack-work -type f -name "hlint.yaml")"
+WRAPPER_LOC="$(find .stack-work -type f -name "cabal-helper-wrapper")"
+
+for x in "${HLINT_LOC}" "${WRAPPER_LOC}"; do
+  mkdir -p "/tmp/output/$(dirname ${x})"
+  cp "${x}" "/tmp/output/${x}"
+done
+
+cd "/etc/hie"
+
+STACK_DIR="$(find .stack/programs -maxdepth 2 -type d -name "ghc-${GHCVER}")"
+mkdir -p "/tmp/output/$(dirname "${STACK_DIR}")"
+cp -Rv "${STACK_DIR}" "/tmp/output/$(dirname "${STACK_DIR}")"
