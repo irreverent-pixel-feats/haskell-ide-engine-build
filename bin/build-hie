@@ -1,6 +1,6 @@
 #!/bin/sh -eux
 
-BUILD_SHA="f25b417"
+BUILD_SHA="1e12219"
 
 apt-get install -y libicu-dev
 
@@ -17,6 +17,7 @@ git submodule update
 HOME="/etc/hie" stack --stack-yaml=stack-${GHCVER}.yaml install
 
 cp /etc/hie/.local/bin/hie /tmp/output/hie
+
 HLINT_LOC="$(find .stack-work -type f -name "hlint.yaml")"
 WRAPPER_LOC="$(find .stack-work -type f -name "cabal-helper-wrapper")"
 
