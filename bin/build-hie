@@ -18,13 +18,16 @@ HOME="/etc/hie" stack --stack-yaml=stack-${GHCVER}.yaml install
 
 cp /etc/hie/.local/bin/hie /tmp/output/hie
 
-HLINT_LOC="$(find .stack-work -type f -name "hlint.yaml")"
-WRAPPER_LOC="$(find .stack-work -type f -name "cabal-helper-wrapper")"
+if [ "${GHCVER}" = "8.0.2" ]
+then
+  HLINT_LOC="$(find .stack-work -type f -name "hlint.yaml")"
+  mkdir -p "/tmp/output/$(dirname ${HLINT_LOC})"
+  cp "${HLINT_LOC}" "/tmp/output/${HLINT_LOC}"
+fi
 
-for x in "${HLINT_LOC}" "${WRAPPER_LOC}"; do
-  mkdir -p "/tmp/output/$(dirname ${x})"
-  cp "${x}" "/tmp/output/${x}"
-done
+WRAPPER_LOC="$(find .stack-work -type f -name "cabal-helper-wrapper")"
+mkdir -p "/tmp/output/$(dirname ${WRAPPER_LOC})"
+cp "${WRAPPER_LOC}" "/tmp/output/${WRAPPER_LOC}"
 
 cd "/etc/hie"
 
