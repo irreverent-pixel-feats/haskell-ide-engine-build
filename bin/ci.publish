@@ -15,5 +15,6 @@ docker run -t --rm \
   -v "$(pwd)/output:/tmp/output" \
   -v "$(pwd)/bin:/home/bin" \
   -v "$(pwd)/data:/home/data" \
+  -v "$(pwd)/etc:/home/etc" \
   "${REPO}:ubuntu_xenial-${GHC_VER}_${CABAL_VER}_${STACK_VER}-${IMAGE_SHA}" \
   "/home/bin/publish-hie"

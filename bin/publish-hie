@@ -15,6 +15,12 @@ cp -v "${BINARY}" "${PKG_ROOT}/usr/bin/hie"
 cp -Rv "${STACK_WORK}" "${PKG_ROOT}/etc/hie/haskell-ide-engine/"
 cp -Rv "${STACK_DIR}" "${PKG_ROOT}/etc/hie/"
 
+if [ "${GHCVER}" -ne "8.0.2" ]
+then
+  mkdir -p "/usr/bin/data"
+  cp -v "/home/etc/hlint.yaml" "/usr/bin/data"
+if
+
 VERSION="${IMAGE_SHA}"
 
 REPO_URL="https://api.bintray.com/content/irreverent-pixel-feats/ipf/hie-${GHCVER}/${VERSION}/pool/main/m/hie-${GHCVER}"
