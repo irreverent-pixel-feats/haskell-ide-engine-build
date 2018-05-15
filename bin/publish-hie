@@ -17,8 +17,8 @@ cp -Rv "${STACK_DIR}" "${PKG_ROOT}/etc/hie/"
 
 if [ "${GHCVER}" -ne "8.0.2" ]
 then
-  mkdir -p "/usr/bin/data"
-  cp -v "/home/etc/hlint.yaml" "/usr/bin/data"
+  mkdir -p "${PKG_ROOT}/usr/bin/data"
+  cp -v "/home/etc/hlint.yaml" "${PKG_ROOT}/usr/bin/data"
 if
 
 VERSION="${IMAGE_SHA}"
