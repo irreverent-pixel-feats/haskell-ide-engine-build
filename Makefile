@@ -5,12 +5,12 @@ BASE_TAG = ubuntu_xenial
 
 .PHONY: build image all publish version
 
-data/version:
+version:
 	bin/git-version ./latest-version
 	diff -q latest-version data/version || cp -v latest-version data/version
 	rm latest-version
 
-output/hie: data/version bin/build-hie
+output/hie: version bin/build-hie
 	docker run -t --rm -e "GHCVER=${GHCVER}" -e "CABALVER=${CABALVER}" -e "STACKVER=${STACKVER}" -v "$(shell pwd)/output:/tmp/output" -v "$(shell pwd)/bin:/home/bin" -v "$(shell pwd)/data:/home/data" "${REPO}:ubuntu_xenial-${GHCVER}_${CABALVER}_${STACKVER}-${IMAGE_SHA}" "/home/bin/build-hie"
 
 build: output/hie
