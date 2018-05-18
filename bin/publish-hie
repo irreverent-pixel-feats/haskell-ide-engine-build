@@ -19,7 +19,7 @@ if [ "${GHCVER}" -ne "8.0.2" ]
 then
   mkdir -p "${PKG_ROOT}/usr/bin/data"
   cp -v "/home/etc/hlint.yaml" "${PKG_ROOT}/usr/bin/data"
-if
+fi
 
 VERSION="${IMAGE_SHA}"
 
