@@ -15,7 +15,7 @@ cp -v "${BINARY}" "${PKG_ROOT}/usr/bin/hie"
 cp -Rv "${STACK_WORK}" "${PKG_ROOT}/etc/hie/haskell-ide-engine/"
 cp -Rv "${STACK_DIR}" "${PKG_ROOT}/etc/hie/"
 
-if [ "${GHCVER}" -ne "8.0.2" ]
+if [ "${GHCVER}" != "8.0.2" ]
 then
   mkdir -p "${PKG_ROOT}/usr/bin/data"
   cp -v "/home/etc/hlint.yaml" "${PKG_ROOT}/usr/bin/data"
