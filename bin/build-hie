@@ -1,6 +1,6 @@
 #!/bin/sh -eux
 
-BUILD_SHA="ec044d5"
+BUILD_SHA="d6ee300"
 
 apt-get install -y libicu-dev
 
