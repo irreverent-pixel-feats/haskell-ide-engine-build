@@ -11,7 +11,8 @@ version:
 	rm latest-version
 
 output/hie: version bin/build-hie
-	find output -type d | while read D; do rm -rf ${D}; done
+	rm -rfv output/*
+	touch output/.gitkeep
 	docker run -t --rm -e "GHCVER=${GHCVER}" -e "CABALVER=${CABALVER}" -e "STACKVER=${STACKVER}" -v "$(shell pwd)/output:/tmp/output" -v "$(shell pwd)/bin:/home/bin" -v "$(shell pwd)/data:/home/data" "${REPO}:ubuntu_xenial-${GHCVER}_${CABALVER}_${STACKVER}-${IMAGE_SHA}" "/home/bin/build-hie"
 
 build: output/hie
