@@ -6,9 +6,8 @@ services:
 
 matrix:
   include:
-  - env: GHCVER=8.0.2 CABALVER=1.24 STACKVER=1.6.5
-  - env: GHCVER=8.2.2 CABALVER=1.24 STACKVER=1.6.5
-  - env: GHCVER=8.4.2 CABALVER=1.24 STACKVER=1.6.5
+  - env: GHCVER=8.2.2 CABALVER=1.24 STACKVER=1.7.1
+  - env: GHCVER=8.4.3 CABALVER=1.24 STACKVER=1.7.1
 
 script:
   - travis_wait 180 bin/ci
