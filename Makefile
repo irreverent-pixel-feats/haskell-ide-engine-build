@@ -1,6 +1,6 @@
 PWD = $(shell pwd)
 REPO = irreverentpixelfeats/ci-haskell-stack
-IMAGE_SHA = 20180911120810-64cf11c
+IMAGE_SHA = 20190202065505-f393498
 BASE_TAG = ubuntu_xenial
 
 .PHONY: build image all publish version
